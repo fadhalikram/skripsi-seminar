@@ -43,10 +43,6 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="file_path">File Path:</label>
-                                <input type="text" class="form-control" id="file_path" name="file_path" value="{{ $certificate->file_path }}" />
-                            </div>
 
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>

@@ -19818,14 +19818,3 @@ textarea.form-control-lg {
 .bi-wikipedia::before {
   content: "\f8cc";
 }
-
-.no-underline {
-  text-decoration: unset;
-}
-
-.limited-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* max-width: 200px;  */
-}

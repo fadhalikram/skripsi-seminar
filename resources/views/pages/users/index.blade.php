@@ -2,12 +2,25 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Users</h2>
-                        <a class="btn btn-success" href="{{ route('users.create') }}">Create New User</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>{{ $title }}s</h3>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="btn btn-success" href="{{ route('users.create') }}">Create New User</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if ($message = Session::get('success'))
@@ -22,6 +35,7 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -31,6 +45,7 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->role == "1" ? "Admin" : "Participant" }}</td>
                                         <td>
                                             <a href="{{ route('users.edit', $user) }}" class="btn btn-primary">Edit</a>
                                             <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline-block;">

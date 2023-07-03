@@ -21,7 +21,6 @@
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Event</th>
-                                <th>File Path</th>
                                 <th>Action</th>
                             </tr>
                             @foreach ($certificates as $certificate)
@@ -29,7 +28,6 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $certificate->user->name }}</td>
                                     <td>{{ $certificate->event->title }}</td>
-                                    <td>{{ $certificate->file_path }}</td>
                                     <td>
                                         <form action="{{ route('certificates.destroy', $certificate->id) }}" method="POST">
                                             <a class="btn btn-primary" href="{{ route('certificates.edit', $certificate->id) }}">Edit</a>

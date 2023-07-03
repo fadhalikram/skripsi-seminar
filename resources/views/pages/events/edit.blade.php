@@ -4,22 +4,26 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Edit Event</h2>
-                    </div>
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                <form action="{{ route('events.update', $event->id) }}" method="POST"  enctype="multipart/form-data">
+                    @csrf
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3>{{ $title }}</h3>
+                                </div>
                             </div>
-                        @endif
-                        <form action="{{ route('events.update', $event->id) }}" method="POST"  enctype="multipart/form-data">
-                            @csrf
+                        </div>
+                        <div class="card-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @method('PUT')
                             <div class="mb-3">
                                 <label for="user_id" class="form-label">User</label>
@@ -60,6 +64,10 @@
                                 <input type="text" class="form-control" id="location" name="location" value="{{ $event->location }}" required>
                             </div>
                             <div class="mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="text" class="form-control" id="price" name="price"  value="{{ $event->price }}" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="banner_image">Banner Image</label>
                                 <input type="file" name="banner_image" id="banner_image" class="form-control-file" accept="image/*">
                             </div>
@@ -69,10 +77,12 @@
                                     <img src="{{ $event->banner_image_url }}" alt="Banner Image" style="max-width: 200px;">
                                 </div>
                             @endif
+                        </div>
+                        <div class="card-footer text-end">
                             <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

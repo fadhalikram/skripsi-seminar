@@ -12,7 +12,7 @@
                                 Sertifikat
                             </h5>
                             <h2 class="fw-bold">{{ $event->title }}</h2>
-                            <h6>9 Peserta Telah Mengikuti Pelatihan Ini</h6>
+                            <h6>{{ $event->count_registered }} Peserta Telah Mengikuti Pelatihan Ini</h6>
                         </div>
                     </div>
                     <div class="col-xl-6 col-12">
@@ -30,6 +30,19 @@
     <div class="container pt-5">
         <div class="row">
             <div class="col-xl-8">
+                
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <span>{{ $message }}</span>
+                    </div>
+                @endif
+                
+                @if ($message = Session::get('failed'))
+                    <div class="alert alert-danger">
+                        <span>{{ $message }}</span>
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-header text-uppercase">
                         Event Details
@@ -57,7 +70,22 @@
                         <h5 class="fw-bold text-secondary">Harga</h5>
                         <h2 class="text-success fw-bold">Rp 200.000</h2>
                         
-                        <button class="btn btn-primary btn-lg btn-block w-100 mt-3">Daftar Pelatihan</button>    
+                        @if($event->can_register)
+                            @if(!$event->has_registered)
+                                <a href="{{ route('events.eventRegister', $event->id) }}" class="btn btn-primary btn-lg btn-block w-100 mt-3">
+                                    Daftar Pelatihan
+                                </a>
+                            @else
+                                <a href="javascript:void(0)" class="btn btn-success btn-lg btn-block w-100 mt-3">
+                                    Telah Terdaftar
+                                </a>    
+                            @endif    
+                        @else
+                            <a href="javascript:void(0)" class="btn btn-secondary btn-lg btn-block w-100 mt-3">
+                                <i class="bi bi-lock"></i> 
+                                Tidak Tersedia
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

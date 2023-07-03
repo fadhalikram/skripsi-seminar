@@ -7,15 +7,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $title = 'Category';
+
     public function index()
     {
+        $title = $this->title;
         $categories = Category::all();
-        return view('pages.categories.index', compact('categories'));
+        return view('pages.categories.index', compact('title', 'categories'));
     }
 
     public function create()
     {
-        return view('pages.categories.create');
+        $title = $this->title;
+        return view('pages.categories.create', compact('title'));
     }
 
     public function store(Request $request)
@@ -32,7 +36,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('pages.categories.edit', compact('category'));
+        $title = $this->title;
+        return view('pages.categories.edit', compact('title', 'category'));
     }
 
     public function update(Request $request, Category $category)

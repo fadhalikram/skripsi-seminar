@@ -6,8 +6,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Categories</h2>
-                        <a class="btn btn-success" href="{{ route('categories.create') }}">Create New Category</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>Categories</h3>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="btn btn-success" href="{{ route('categories.create') }}">Create New {{$title}}</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if ($message = Session::get('success'))

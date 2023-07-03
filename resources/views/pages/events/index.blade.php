@@ -6,8 +6,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Events</h2>
-                        <a class="btn btn-success" href="{{ route('events.create') }}">Create New Event</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>{{ $title }}s</h3>
+                            </div>
+                            <div class="col-6 text-end">
+                                <a class="btn btn-success" href="{{ route('events.create') }}">Create New {{$title}}</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if ($message = Session::get('success'))
@@ -24,8 +30,8 @@
                                 <th>Category</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Date</th>
-                                <th>Time</th>
+                                <th>Date Time</th>
+                                <th>Price</th>
                                 <th>Location</th>
                                 <th>Banner</th>
                                 <th>Action</th>
@@ -39,9 +45,12 @@
                                     <td>{{ $event->category->name }}</td>
                                     <td>{{ $event->title }}</td>
                                     <td>{{ $event->description }}</td>
-                                    <td>{{ $event->date }}</td>
-                                    <td>{{ $event->time }}</td>
-                                    <td>{{ $event->location }}</td>
+                                    <td>{{ $event->date }}, {{ $event->time }}</td>
+                                    <td>
+                                        {{ 'Rp ' . number_format($event->price, 0, ',', '.') }}
+                                    <td>
+                                        <a href="{{ $event->location }}">Lihat</a>
+                                    </td>
                                     <td>
                                         <img src="{{ $event->banner_image_url }}" style="max-width: 100px;" alt="Event Image" class="img-fluid">
                                     </td>
@@ -52,6 +61,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         </form>
+                                        <a href="{{ route('events.certificate.upsert', $event->id) }}" class="btn btn-{{$event->certificate ? 'success' : 'warning'}} btn-sm">Certificate</a>
                                     </td>
                                 </tr>
                             @endforeach

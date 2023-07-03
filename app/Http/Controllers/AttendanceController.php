@@ -3,57 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Registration;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AttendanceController extends Controller
 {
-    public function index()
-    {
-        $attendances = Attendance::all();
+    protected $title = 'Attendance';
 
-        return view('pages.attendances.index', compact('attendances'));
+    public function index(Request $request)
+    {
+        $title = $this->title;
+
+        $user = Auth::user();
+        $events = Event::all();
+        
+        // Filters
+        $eventId = $request->input('event_id');
+
+        $query = Registration::query();
+
+        if ($eventId !== null) {
+            $query->where('event_id', $eventId);
+        }
+    
+        $registrations = $query->with('event.certificate', 'user')->get();
+       
+        foreach ($registrations as $registration) {
+            $registration->event->banner_image_url = Storage::url($registration->event->banner_image);
+            $registration->is_present_name = !$registration->is_present ? 'Not Present' : 'Present';
+        }
+        
+        return view('pages.attendances.index', compact('title', 'registrations', 'events'));
     }
 
-    public function create()
+    public function updatePresentStatus(Registration $registration)
     {
-        return view('pages.attendances.create');
-    }
+        $registration->is_present = true;
+        $registration->save();
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'user_id' => 'required',
-            'event_id' => 'required',
-            'is_present' => 'nullable|boolean',
-        ]);
-
-        Attendance::create($request->all());
-
-        return redirect()->route('attendances.index')->with('success', 'Attendance created successfully.');
-    }
-
-    public function edit(Attendance $attendance)
-    {
-        return view('pages.attendances.edit', compact('attendance'));
-    }
-
-    public function update(Request $request, Attendance $attendance)
-    {
-        $request->validate([
-            'user_id' => 'required',
-            'event_id' => 'required',
-            'is_present' => 'nullable|boolean',
-        ]);
-
-        $attendance->update($request->all());
-
-        return redirect()->route('attendances.index')->with('success', 'Attendance updated successfully.');
-    }
-
-    public function destroy(Attendance $attendance)
-    {
-        $attendance->delete();
-
-        return redirect()->route('attendances.index')->with('success', 'Attendance deleted successfully.');
+        return redirect()->back()->with('success', 'Attendance status updated successfully.');
     }
 }

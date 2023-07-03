@@ -23,4 +23,9 @@ class Registration extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    public function paymentConfirmation()
+    {
+        return $this->hasOne(PaymentConfirmation::class);
+    }
 }

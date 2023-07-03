@@ -42,18 +42,15 @@
 
             @guest
             @else
-                <!-- <h3 class="fw-bold text-secondary">Menus</h3>
-                <hr class="hr" /> -->
-
                 <div class="row">
                     @foreach($menus as $menu)
                     <div class="col-xl-2 col-md-3 col-sm-4 col-6 my-1">
-                        <a href="{{ route($menu->name.'.index') }}" class="card text-{{ $menu->color }} border-{{ $menu->color }}  no-underline">
+                        <a href="{{ route($menu->route.'.index') }}" class="card text-{{ $menu->color }} border-{{ $menu->color }}  no-underline">
                             <div class="card-body">
                                 <h1 class="card-title text-center">
                                     <i class="{{ $menu->icon }}"></i>
                                 </h1>
-                                <div class="text-center text-{{ $menu->color }} fw-bold text-capitalize">{{ $menu->name }}</div>
+                                <div class="text-center text-{{ $menu->color }} fw-bold text-capitalize">{{ ucwords(str_replace('_', ' ', $menu->name)) }}</div>
                             </div>
                         </a>
                     </div>
