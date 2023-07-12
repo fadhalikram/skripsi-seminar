@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -66,8 +69,13 @@
             <hr class="hr mt-0" />
 
             <div class="d-flex mb-3">
+                <a href="{{ route('public') }}" style="border: unset; border-radius: 10px; margin-right: 1rem; text-decoration: none;" class="card">
+                    <div class="card-body bg-info" style=" border-radius: 5px; padding: 0.75rem 2rem;">
+                        <div class="text-center fw-bold text-white" style="font-size: 14px;">All</div>
+                    </div>
+                </a>
                 @foreach ($categories as $category)
-                    <a href="javascript:void(0)" style="border: unset; border-radius: 10px; margin-right: 1rem; text-decoration: none;" class="card">
+                    <a href="{{ route('public', ['category_id' => $category->id]) }}" style="border: unset; border-radius: 10px; margin-right: 1rem; text-decoration: none;" class="card">
                         <div class="card-body bg-info" style=" border-radius: 5px; padding: 0.75rem 2rem;">
                             <div class="text-center fw-bold text-white" style="font-size: 14px;">{{ $category->name }}</div>
                         </div>
@@ -88,7 +96,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </script>
 @endsection

@@ -15,11 +15,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(request $request)
     {
+        $categoryID = $request->category_id;
+
         $user = Auth::user();
         $sliders = Event::where('is_banner_slider', 1)->get();
-        $events = Event::all();
+        if($categoryID) {
+            $events = Event::where('category_id', $categoryID)->get();
+        } else {
+            $events = Event::all();
+        }
         $categories = Category::all();
         // $menus = ['events','users','attendances','certificates','categories','registrations'];
 

@@ -28,7 +28,7 @@ use App\Http\Controllers\PaymentConfirmationController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('public.home');
+Route::get('/', [HomeController::class, 'index'])->name('public');
 Route::get('/home', [HomeController::class, 'index'])->name('public.home');
 Route::get('/event/{id}', [PublicController::class, 'showEvent'])->name('public.event.show');
 
