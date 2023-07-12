@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+            </ol>
+        </nav>
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -34,6 +41,7 @@
                                 <th>Price</th>
                                 <th>Location</th>
                                 <th>Banner</th>
+                                <th>Slider</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -53,6 +61,13 @@
                                     </td>
                                     <td>
                                         <img src="{{ $event->banner_image_url }}" style="max-width: 100px;" alt="Event Image" class="img-fluid">
+                                    </td>
+                                    <td>
+                                        @if($event->is_banner_slider)
+                                            <img src="{{ $event->banner_slider_image_url }}" style="max-width: 100px;" alt="Event Image" class="img-fluid">
+                                        @else
+                                            <span class="text-secondary">unset</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('events.edit', $event->id) }}" class="btn btn-primary btn-sm">Edit</a>

@@ -68,7 +68,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="fw-bold text-secondary">Harga</h5>
-                        <h2 class="text-success fw-bold">Rp 200.000</h2>
+                        <h2 class="text-success fw-bold">{{ $event->price == 0 ? 'Free' : "Rp " . number_format($event->price) }}</h2>
                         
                         @if($event->can_register)
                             @if(!$event->has_registered)

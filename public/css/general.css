@@ -8,3 +8,52 @@
     text-overflow: ellipsis;
     /* max-width: 200px;  */
 }
+
+footer {
+    background-color: #f2f2f2;
+    padding: 2rem;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-left img {
+    height: 80px;
+    padding-right: 1rem;
+}
+
+.footer-left i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.system-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footer-right {
+    display: flex;
+}
+.footer-right div {
+    min-width: 150px;
+}
+
+.footer-right ul {
+    /* display: flex; */
+    list-style-type: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.footer-right li {
+    margin-left: 10px;
+}

@@ -11,6 +11,7 @@ use App\Models\Certificate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use TCPDF;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -23,6 +24,7 @@ class EventController extends Controller
        
         foreach ($events as $event) {
             $event->banner_image_url = Storage::url($event->banner_image);
+            $event->banner_slider_image_url = $event->banner_slider_image ? Storage::url($event->banner_slider_image) : null;
         }
         
         return view('pages.events.index', compact('title', 'events'));
@@ -31,16 +33,14 @@ class EventController extends Controller
     public function create()
     {
         $title = $this->title;
-        $users = User::all();
         $categories = Category::all();
     
-        return view('pages.events.create', compact('title', 'users', 'categories'));
+        return view('pages.events.create', compact('title', 'categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
             'category_id' => 'required',
             'description' => 'nullable',
             'title' => 'required',
@@ -49,6 +49,8 @@ class EventController extends Controller
             'location' => 'required',
             'banner_image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'nullable',
+            'is_banner_slider' => 'required',
+            'banner_slider_image' => 'required_if:is_file,true',
         ]);
 
         // Upload banner image
@@ -58,9 +60,18 @@ class EventController extends Controller
             $imagePath = null;
         }
 
+        // Upload banner slider image
+        if ($request->hasFile('banner_slider_image')) {
+            $imageSliderPath = $request->file('banner_slider_image')->store('banner_sliders', 'public');
+        } else {
+            $imageSliderPath = null;
+        }
+
+        $user = Auth::user();
+
         // Create the event
         $event = new Event();
-        $event->user_id = $request->input('user_id');
+        $event->user_id = $user->id;
         $event->category_id = $request->input('category_id');
         $event->title = $request->input('title');
         $event->description = $request->input('description');
@@ -68,6 +79,8 @@ class EventController extends Controller
         $event->time = $request->input('time');
         $event->location = $request->input('location');
         $event->banner_image = $imagePath;
+        $event->is_banner_slider = $request->input('is_banner_slider');
+        $event->banner_slider_image = $imageSliderPath;
         $event->price = $request->input('price');
         $event->save();
 
@@ -80,6 +93,7 @@ class EventController extends Controller
         $users = User::all();
         $categories = Category::all();
         $event->banner_image_url =  Storage::url($event->banner_image);
+        $event->banner_slider_image_url =  Storage::url($event->banner_slider_image);
 
         return view('pages.events.edit', compact('title', 'event', 'users', 'categories'));
     }
@@ -87,7 +101,6 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'user_id' => 'required',
             'category_id' => 'required',
             'title' => 'required',
             'description' => 'nullable',
@@ -96,8 +109,9 @@ class EventController extends Controller
             'location' => 'required',
             'banner_image' => 'nullable|mimes:jpeg,png,jpg|max:2048',
             'price' => 'nullable',
+            'is_banner_slider' => 'required',
+            'banner_slider_image' => 'required_if:is_banner_slider,true',
         ]);
-
 
         $imagePath = null;
         if ($request->hasFile('banner_image')) {
@@ -108,8 +122,17 @@ class EventController extends Controller
             $imagePath = $request->file('banner_image')->store('banners', 'public');
             $event->banner_image = $imagePath;
         }
+
+        $imageSliderPath = null;
+        if ($request->hasFile('banner_slider_image')) {
+            if ($event->banner_slider_image) {
+                Storage::disk('public')->delete($event->banner_slider_image);
+            }
+
+            $imageSliderPath = $request->file('banner_slider_image')->store('banner_sliders', 'public');
+            $event->banner_slider_image = $imageSliderPath;
+        }
         
-        $event->user_id = $request->input('user_id');
         $event->category_id = $request->input('category_id');
         $event->title = $request->input('title');
         $event->description = $request->input('description');
@@ -117,8 +140,12 @@ class EventController extends Controller
         $event->time = $request->input('time');
         $event->location = $request->input('location');
         $event->price = $request->input('price');
+        $event->is_banner_slider = $request->input('is_banner_slider');
         if($imagePath){
             $event->banner_image = $imagePath;
+        }
+        if($imageSliderPath){
+            $event->banner_slider_image = $imageSliderPath;
         }
         $event->save();
 
@@ -141,9 +168,14 @@ class EventController extends Controller
         // $events = Event::where('user_id', $user->id)->get();
        
         foreach ($registrations as $registration) {
+            // return $registrationdate;
+            $dateTime = Carbon::createFromFormat('Y-m-d H:i:s', $registration->event->date . ' ' . $registration->event->time);
+
             $registration->event->banner_image_url = Storage::url($registration->event->banner_image);
+            $registration->event->banner_slider_image_url = Storage::url($registration->event->banner_slider_image);
             $registration->payment_status_name = $registration->payment_status == 0 ? 'Confirmation Process' : 'Paid';
             $registration->is_present_name = !$registration->is_present ? 'Not Present' : 'Present';
+            $registration->has_attendance = $dateTime->isFuture();
         }
         
         return view('pages.events.clients.index', compact('title', 'registrations'));

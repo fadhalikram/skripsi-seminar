@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('events.index') }}">{{ $title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
@@ -25,15 +33,6 @@
                                     </ul>
                                 </div>
                             @endif
-                            <div class="mb-3">
-                                <label for="user_id" class="form-label">User</label>
-                                <select class="form-control" id="user_id" name="user_id" required>
-                                    <option value="">Select User</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="mb-3">
                                 <label for="category_id" class="form-label">Category</label>
                                 <select class="form-control" id="category_id" name="category_id" required>
@@ -71,6 +70,14 @@
                                 <label for="banner_image">Banner Image</label>
                                 <input type="file" name="banner_image" id="banner_image" class="form-control-file" accept="image/*" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="is_banner_slider">As Slider Banner:</label>
+                                <input type="checkbox" name="is_banner_slider" id="is_banner_slider" value="1">
+                            </div>
+                            <div class="mb-3" id="banner-slider-image-input-container" style="display: none;">
+                                <label for="banner_slider_image">Banner Slider Image</label>
+                                <input type="file" name="banner_slider_image" id="banner_slider_image" class="form-control-file" accept="image/*" required>
+                            </div>
                         </div>
                         <div class="card-footer text-end">
                             <button type="submit" class="btn btn-primary">Create</button>
@@ -80,4 +87,20 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#is_banner_slider').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#banner-slider-image-input-container').show();
+                } else {
+                    $('#banner-slider-image-input-container').hide();
+                }
+            });
+        });
+    </script>
 @endsection

@@ -54,8 +54,14 @@
                                         @if($registration->is_present)
                                             <a href="{{ route('events.certificate.generate', $registration->event->id) }}" target="_blank" class="btn btn-success btn-sm">Download Certificate</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn btn-secondary btn-sm">Download Certificate</a>
+                                            <a href="javascript:void(0)" onclick="return alert('You are unable to download the certificate.')" class="btn btn-secondary btn-sm">Download Certificate</a>
+                                            @if($registration->has_attendance)
+                                                <a href="{{ route('attendances.updatePresentStatus', $registration->id) }}"  onclick="return confirm('Are you sure you want to update this attendance?')" class="btn btn-primary btn-sm">{{ __('Persent') }}</a>
+                                            @else
+                                                <a href="javascript:void(0)" onclick="return alert('You are unable to download the certificate.')" class="btn btn-secondary btn-sm">{{ __('Persent') }}</a>
+                                            @endif
                                         @endif
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -18,6 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $sliders = Event::where('is_banner_slider', 1)->get();
         $events = Event::all();
         $categories = Category::all();
         // $menus = ['events','users','attendances','certificates','categories','registrations'];
@@ -25,18 +26,18 @@ class HomeController extends Controller
         // return $user?->role;
         if($user?->role == 1) {
             $menus = json_decode(json_encode([
-                ['route' => 'events', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'success'],
-                ['route' => 'users', 'name' => 'User', 'icon' => 'bi bi-people', 'color' => 'success'],
+                ['route' => 'events', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'danger'],
+                ['route' => 'users', 'name' => 'User', 'icon' => 'bi bi-people', 'color' => 'secondary'],
                 ['route' => 'attendances', 'name' => 'Attendance', 'icon' => 'bi bi-person-check-fill', 'color' => 'success'],
                 // ['route' => 'certificates', 'name' => 'Certificate', 'icon' => 'bi bi-patch-check', 'color' => 'success'],
-                ['route' => 'categories', 'name' => 'Category', 'icon' => 'bi bi-tag', 'color' => 'success'],
-                ['route' => 'registrations', 'name' => 'Registration', 'icon' => 'bi bi-person-lines-fill', 'color' => 'success'],
-                ['route' => 'payment_confirmations', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-person-lines-fill', 'color' => 'success'],
+                ['route' => 'categories', 'name' => 'Category', 'icon' => 'bi bi-tag', 'color' => 'warning'],
+                ['route' => 'registrations', 'name' => 'Registration', 'icon' => 'bi bi-person-lines-fill', 'color' => 'primary'],
+                ['route' => 'payment_confirmations', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-check', 'color' => 'info'],
             ]));
         } elseif ($user?->role == 2) {
             $menus = json_decode(json_encode([
-                ['route' => 'events.client', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'success'],
-                ['route' => 'payment_confirmations.client', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-person-lines-fill', 'color' => 'success'],
+                ['route' => 'events.client', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'red'],
+                ['route' => 'payment_confirmations.client', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-person-lines-fill', 'color' => 'info'],
             ]));
         } else {
             $menus = [];
@@ -44,8 +45,14 @@ class HomeController extends Controller
         
         foreach ($events as $event) {
             $event->banner_image_url = Storage::url($event->banner_image);
+            $event->banner_slider_image_url = Storage::url($event->banner_slider_image);
         }
         
-        return view('home', compact('events', 'categories', 'menus'));
+        foreach ($sliders as $slider) {
+            $slider->banner_image_url = Storage::url($slider->banner_image);
+            $slider->banner_slider_image_url = Storage::url($slider->banner_slider_image);
+        }
+        
+        return view('home', compact('events', 'categories', 'menus', 'sliders'));
     }
 }

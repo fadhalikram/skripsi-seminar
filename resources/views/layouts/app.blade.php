@@ -20,14 +20,16 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    
+    @yield('css')    
 </head>
-<body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="height: 75px;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1462/1462469.png" width="40" height="40" class="d-inline-block align-center" alt="">
-                    <span class="fw-bold text-uppercase">{{ config('app.name', 'Seminar') }}</span>
+                    <img src="/storage/assets/core-icon.png" width="50" height="50" class="d-inline-block align-center" alt="">
+                    <span class="fw-bold">{{ config('app.name', 'Event App') }}</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -45,13 +47,16 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item" style="margin-right: 10px">
-                                    <a class="btn btn-primary text-uppercase" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="btn btn-info text-white" href="{{ route('login') }}">
+                                        <i class="bi bi-box-arrow-in-right fw-bold mr-1"></i>
+                                        {{ __('Login') }}
+                                    </a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-primary text-uppercase" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="btn btn-outline-info " href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -81,6 +86,40 @@
         <main class="py-4">
             @yield('content')
         </main>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-left">
+                    <img src="/storage/assets/core-icon.png"/>  
+                    <span class="system-name">{{ config('app.name', 'Event App') }}</span>
+                </div>
+                <!-- <div class="footer-right">
+                    <div>
+                        <h6 class="fw-bold">Categories</h6>
+                        <ul>
+                            <li>Categories</li>
+                            <li>Events</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold">Events</h6>
+                        <ul>
+                            <li>Categories</li>
+                            <li>Events</li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </footer>
+
+        <!-- <footer>
+            
+        <div class="container">
+            <div class="row justify-content-center">
+                test
+            </div>
+        </div>
+        </footer> -->
     </div>
     
     @yield('scripts')
