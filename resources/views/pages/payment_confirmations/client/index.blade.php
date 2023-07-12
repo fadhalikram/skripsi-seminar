@@ -2,12 +2,19 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+            </ol>
+        </nav>
+
         <div class="card">
             <div class="col-md-12">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h3>{{ $title }}s</h3>
+                            <h5 class="mb-0 mt-2">{{ $title }}s</h5>
                         </div>
                         <div class="col-6 text-end">
                             <a class="btn btn-success" href="{{ route('payment_confirmations.client.create') }}">Create New {{ $title }}</a>

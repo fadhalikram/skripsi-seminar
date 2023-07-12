@@ -15,7 +15,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <h3>{{ $title }}s</h3>
+                                <h5 class="mb-0 mt-2">{{ $title }}s</h5>
                             </div>
                             <div class="col-6 text-end">
                                 <a class="btn btn-success" href="{{ route('events.create') }}">Create New {{$title}}</a>

@@ -42,7 +42,7 @@ class HomeController extends Controller
             ]));
         } elseif ($user?->role == 2) {
             $menus = json_decode(json_encode([
-                ['route' => 'events.client', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'red'],
+                ['route' => 'events.client', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'danger'],
                 ['route' => 'payment_confirmations.client', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-person-lines-fill', 'color' => 'info'],
             ]));
         } else {

@@ -18,7 +18,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h3>{{ $title }}</h3>
+                                    <h5 class="mb-0">Edit {{ $title }}</h5>
                                 </div>
                             </div>
                         </div>

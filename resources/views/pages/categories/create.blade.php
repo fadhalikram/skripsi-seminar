@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">{{ $title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('categories.store') }}" method="POST">
@@ -10,7 +18,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h3>{{ $title }}</h3>
+                                    <h5 class="mb-0">{{ $title }}</h5>
                                 </div>
                             </div>
                         </div>

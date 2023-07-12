@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Create {{ $title }}</h3>
+                        <h5 class="mb-0">Create {{ $title }}</h5>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())

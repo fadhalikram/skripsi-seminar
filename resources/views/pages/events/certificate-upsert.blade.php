@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('events.index') }}">{{ $title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Generate Certificate</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('events.certificate.submitUpsert', $event->id) }}" method="POST"  enctype="multipart/form-data">
@@ -11,7 +19,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h3>{{ $certificate?->id ? 'Edit' : 'Create' }} Certificate</h3>
+                                    <h5 class="mb-0">{{ $certificate?->id ? 'Edit' : 'Generate' }} Certificate</h5>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +100,9 @@
 
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('events.certificate.generate', $event->id) }}" target="_blank" class="btn btn-info text-white">Preview</a>
+                            @if($certificate?->id)
+                                <a href="{{ route('events.certificate.generate', $event->id) }}" target="_blank" class="btn btn-info text-white">Preview</a>
+                            @endif
                             <button type="submit" class="btn btn-primary">{{ $certificate?->id ? 'Update' : 'Create' }}</button>
                         </div>
                     </div>

@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('payment_confirmations.client.index') }}">{{ $title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
+
         <div class="card">
             <div class="card-header">
                 {{ __('Payment Confirmation Details') }}

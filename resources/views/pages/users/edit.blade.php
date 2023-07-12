@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Edit {{ $title }}</h2>
+                        <h5 class="mb-0">Edit {{ $title }}</h5>
                     </div>
                     <div class="card-body">
                         @if ($errors->any())

@@ -184,6 +184,7 @@ class EventController extends Controller
     // CLIENT
     public function upsertCertificate(Event $event)
     {
+        $title = $this->title;
         $user = Auth::User();
         $certificate = Certificate::where('event_id', $event->id)->first();
         if(!$certificate){
@@ -201,7 +202,7 @@ class EventController extends Controller
 
         // return $certificate->logo_image_url;
 
-        return view('pages.events.certificate-upsert', compact('user', 'certificate', 'event'));
+        return view('pages.events.certificate-upsert', compact('user', 'certificate', 'event', 'title'));
     }
 
     // CERTIFICATES

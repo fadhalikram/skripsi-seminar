@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb no-underline">
+                <li class="breadcrumb-item"><a href="{{ route('public.home') }}">Home</a></li>
+                <li class="breadcrumb-item active">{{ $title }}</li>
+            </ol>
+        </nav>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
