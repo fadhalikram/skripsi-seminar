@@ -10,6 +10,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentConfirmationController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::get('/event/{id}', [PublicController::class, 'showEvent'])->name('public.
 
 Route::group(['middleware' => 'auth'], function () {
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     
     // CATEGORIES
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

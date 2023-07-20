@@ -39,11 +39,22 @@ class HomeController extends Controller
                 ['route' => 'categories', 'name' => 'Category', 'icon' => 'bi bi-tag', 'color' => 'warning'],
                 ['route' => 'registrations', 'name' => 'Registration', 'icon' => 'bi bi-person-lines-fill', 'color' => 'primary'],
                 ['route' => 'payment_confirmations', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-check', 'color' => 'info'],
+                ['route' => 'dashboard', 'name' => 'Dashboard', 'icon' => 'bi bi-clipboard-data-fill', 'color' => 'info'],
             ]));
         } elseif ($user?->role == 2) {
             $menus = json_decode(json_encode([
                 ['route' => 'events.client', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'danger'],
                 ['route' => 'payment_confirmations.client', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-person-lines-fill', 'color' => 'info'],
+            ]));
+        } elseif ($user?->role == 3) {
+            $menus = json_decode(json_encode([
+                ['route' => 'events', 'name' => 'Event', 'icon' => 'bi bi-calendar-event', 'color' => 'danger'],
+                ['route' => 'attendances', 'name' => 'Attendance', 'icon' => 'bi bi-person-check-fill', 'color' => 'success'],
+                // ['route' => 'certificates', 'name' => 'Certificate', 'icon' => 'bi bi-patch-check', 'color' => 'success'],
+                ['route' => 'categories', 'name' => 'Category', 'icon' => 'bi bi-tag', 'color' => 'warning'],
+                ['route' => 'registrations', 'name' => 'Registration', 'icon' => 'bi bi-person-lines-fill', 'color' => 'primary'],
+                ['route' => 'payment_confirmations', 'name' => 'Payment Confirmation', 'icon' => 'bi bi-check', 'color' => 'info'],
+                ['route' => 'dashboard', 'name' => 'Dashboard', 'icon' => 'bi bi-clipboard-data-fill', 'color' => 'info'],
             ]));
         } else {
             $menus = [];

@@ -45,7 +45,7 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role == "1" ? "Admin" : "Participant" }}</td>
+                                        <td>{{ $user->role == "1" ? "Admin" : ($user->role == "2" ? "Participant" : "Committee") }}</td>
                                         <td>
                                             <a href="{{ route('users.edit', $user) }}" class="btn btn-primary">Edit</a>
                                             <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline-block;">

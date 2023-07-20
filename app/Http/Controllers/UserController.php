@@ -60,16 +60,15 @@ class UserController extends Controller
             'password' => 'nullable|min:6',
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-        ]);
-
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
-            $user->save();
         }
+        
+        $user->save();
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
