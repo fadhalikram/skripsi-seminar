@@ -55,7 +55,7 @@
                         <p>{{ $event->location }}</p>
 
                         <h5 class="text-secondary">Description</h5>
-                        <p>{!! $event->description !!}</p>
+                        <div>{!! nl2br($event->description) !!}</div>
                         
                     </div>
                     <!-- <div class="card-footer">

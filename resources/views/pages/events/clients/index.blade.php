@@ -48,7 +48,7 @@
                                     <td>{{ $registration->event->id }}</td>
                                     <td>{{ $registration->event->category->name }}</td>
                                     <td>{{ $registration->event->title }}</td>
-                                    <td>{{ $registration->event->description }}</td>
+                                    <td>{!! $registration->event->description !!}</td>
                                     <td>{{ $registration->event->date }}</td>
                                     <td>{{ $registration->event->time }}</td>
                                     <td>{{ $registration->event->location }}</td>

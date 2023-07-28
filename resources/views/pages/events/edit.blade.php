@@ -48,7 +48,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description">{{ $event->description }}</textarea>
+                                <textarea class="form-control" id="description" name="description">{!! nl2br($event->description) !!}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="date" class="form-label">Date</label>

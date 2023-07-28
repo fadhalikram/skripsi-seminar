@@ -52,7 +52,7 @@
                                     <td>{{ $event->user->name }}</td>
                                     <td>{{ $event->category->name }}</td>
                                     <td>{{ $event->title }}</td>
-                                    <td>{{ $event->description }}</td>
+                                    <td>{!! nl2br($event->description) !!}</td>
                                     <td>{{ $event->date }}, {{ $event->time }}</td>
                                     <td>
                                         {{ 'Rp ' . number_format($event->price, 0, ',', '.') }}
