@@ -36,6 +36,7 @@
                                 <th>User</th>
                                 <th>Category</th>
                                 <th>Title</th>
+                                <th>Speaker</th>
                                 <th>Description</th>
                                 <th>Date Time</th>
                                 <th>Price</th>
@@ -52,6 +53,7 @@
                                     <td>{{ $event->user->name }}</td>
                                     <td>{{ $event->category->name }}</td>
                                     <td>{{ $event->title }}</td>
+                                    <td>{{ $event->speaker }}</td>
                                     <td>{!! nl2br($event->description) !!}</td>
                                     <td>{{ $event->date }}, {{ $event->time }}</td>
                                     <td>

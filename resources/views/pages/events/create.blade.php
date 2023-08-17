@@ -47,6 +47,10 @@
                                 <input type="text" class="form-control" id="title" name="title" required>
                             </div>
                             <div class="mb-3">
+                                <label for="speaker" class="form-label">Speaker</label>
+                                <input type="text" class="form-control" id="speaker" name="speaker" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description"></textarea>
                             </div>

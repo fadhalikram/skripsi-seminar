@@ -47,6 +47,10 @@
                                 <input type="text" class="form-control" id="title" name="title" value="{{ $event->title }}" required>
                             </div>
                             <div class="mb-3">
+                                <label for="speaker" class="form-label">Speaker</label>
+                                <input type="text" class="form-control" id="speaker" name="speaker" value="{{ $event->speaker }}" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description">{!! nl2br($event->description) !!}</textarea>
                             </div>

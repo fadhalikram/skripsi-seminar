@@ -51,6 +51,7 @@ class EventController extends Controller
             'price' => 'nullable',
             'is_banner_slider' => 'required',
             'banner_slider_image' => 'required_if:is_file,true',
+            'speaker' => 'nullable',
         ]);
 
         // Upload banner image
@@ -82,6 +83,7 @@ class EventController extends Controller
         $event->is_banner_slider = $request->input('is_banner_slider');
         $event->banner_slider_image = $imageSliderPath;
         $event->price = $request->input('price');
+        $event->speaker = $request->input('speaker');
         $event->save();
 
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
@@ -111,6 +113,7 @@ class EventController extends Controller
             'price' => 'nullable',
             'is_banner_slider' => 'required',
             'banner_slider_image' => 'required_if:is_banner_slider,true',
+            'speaker' => 'nullable',
         ]);
 
         $imagePath = null;
@@ -147,6 +150,7 @@ class EventController extends Controller
         if($imageSliderPath){
             $event->banner_slider_image = $imageSliderPath;
         }
+        $event->speaker = $request->input('speaker');
         $event->save();
 
         return redirect()->route('events.index')->with('success', 'Event updated successfully.');
